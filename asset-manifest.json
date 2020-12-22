@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/register-form-template/static/css/main.fecbb273.chunk.css",
+    "main.js": "/register-form-template/static/js/main.d911ef12.chunk.js",
+    "main.js.map": "/register-form-template/static/js/main.d911ef12.chunk.js.map",
+    "runtime-main.js": "/register-form-template/static/js/runtime-main.b42d412c.js",
+    "runtime-main.js.map": "/register-form-template/static/js/runtime-main.b42d412c.js.map",
+    "static/js/2.990192f2.chunk.js": "/register-form-template/static/js/2.990192f2.chunk.js",
+    "static/js/2.990192f2.chunk.js.map": "/register-form-template/static/js/2.990192f2.chunk.js.map",
+    "index.html": "/register-form-template/index.html",
+    "static/css/main.fecbb273.chunk.css.map": "/register-form-template/static/css/main.fecbb273.chunk.css.map",
+    "static/js/2.990192f2.chunk.js.LICENSE.txt": "/register-form-template/static/js/2.990192f2.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b42d412c.js",
+    "static/js/2.990192f2.chunk.js",
+    "static/css/main.fecbb273.chunk.css",
+    "static/js/main.d911ef12.chunk.js"
+  ]
+}

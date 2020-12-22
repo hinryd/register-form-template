@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/App.css"],"names":[],"mappings":"AAAA,gBACE,WAAY,CACZ,aACF,CAEA,WACE,YAAa,CACb,aACF","file":"main.fecbb273.chunk.css","sourcesContent":[".form-container {\n  width: 720px;\n  margin: 0 auto;\n}\n\n.form-item {\n  display: flex;\n  margin: 20px 0;\n}\n"]}
