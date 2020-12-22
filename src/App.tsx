@@ -1,55 +1,89 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { TextField, Button } from "@material-ui/core";
+import { Button, Checkbox, TextField } from "@material-ui/core";
+import { Field, FieldAttributes, Form, Formik, useField } from "formik";
+import * as yup from "yup";
 import "./App.css";
 
-const App = () => (
-  <div>
-    <Formik
-      initialValues={{ email: "", password: "" }}
-      validate={(values) => {
-        const errors = {};
+const validationSchema = yup.object({
+  firstName: yup.string().required().max(15),
+  lastName: yup.string().required().max(15),
+  username: yup.string().required().max(15),
+  password: yup.string().required().max(15),
+  email: yup.string().required().email(),
+  agreeToTerms: yup.bool().oneOf([true], "Field must be checked"),
+});
 
-        if (!values.email) {
-          errors.email = "Required";
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          errors.email = "Invalid email address";
-        }
+const MyTextField: React.FC<{ label: string } & FieldAttributes<{}>> = ({
+  label,
+  ...props
+}) => {
+  const [field, meta] = useField<{}>(props);
+  const errorText = meta.error && meta.touched ? meta.error : "";
+  return (
+    <TextField
+      className="form-item"
+      {...field}
+      label={label}
+      helperText={errorText}
+      error={!!errorText}
+      variant="outlined"
+      fullWidth={true}
+    />
+  );
+};
 
-        return errors;
-      }}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-
+const App: React.FC = () => {
+  return (
+    <>
+      <Formik
+        initialValues={{
+          firstName: "",
+          lastName: "",
+          username: "",
+          password: "",
+          email: "",
+          agreeToTerms: false,
+        }}
+        validationSchema={validationSchema}
+        onSubmit={(data, { setSubmitting, resetForm }) => {
+          setSubmitting(true);
+          console.log(data);
           setSubmitting(false);
-        }, 400);
-      }}
-    >
-      {({ isSubmitting }) => (
-        <Form>
-          <Field
-            type="email"
-            name="email"
-            as={TextField}
-            helperText={ErrorMessage}
-          />
+          resetForm();
+        }}
+      >
+        {({ values, errors, isSubmitting }) => (
+          <Form className="form-container">
+            <div className="form-item">
+              <MyTextField name="firstName" label="First Name" />
+              <MyTextField name="lastName" label="Last Name" />
+            </div>
+            <div className="form-item">
+              <MyTextField name="username" label="Username" />
+            </div>
+            <div className="form-item">
+              <MyTextField name="email" type="email" label="Email" />
+            </div>
+            <div className="form-item">
+              <MyTextField name="password" label="Password (at most 15)" />
+            </div>
+            <div className="form-item">
+              <Field name="agreeToTerms" type="checkbox" as={Checkbox} />
+              <label>Tick the box if you agree the Terms and Conditions</label>
+            </div>
+            <div className="form-item">
+              <Button type="submit" disabled={isSubmitting} fullWidth={true}>
+                Submit
+              </Button>
+            </div>
 
-          <ErrorMessage name="email" component="div" />
-
-          <Field type="password" name="password" as={TextField} />
-
-          <ErrorMessage name="password" component="div" />
-
-          <Button type="submit" disabled={isSubmitting}>
-            Submit
-          </Button>
-        </Form>
-      )}
-    </Formik>
-  </div>
-);
+            <pre>{JSON.stringify(values, null, 2)}</pre>
+            <pre>{JSON.stringify(errors, null, 2)}</pre>
+          </Form>
+        )}
+      </Formik>
+    </>
+  );
+};
 
 export default App;
